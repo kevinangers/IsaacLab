@@ -284,7 +284,6 @@ def main(args):
     if args.task is not None:
         # obtain the configuration entry point
         cfg_entry_point_key = f"robomimic_{args.algo}_cfg_entry_point"
-
         print(f"Loading configuration for task: {args.task}")
         print(gym.envs.registry.keys())
         print(" ")
@@ -301,7 +300,7 @@ def main(args):
             config = config_factory(ext_cfg["algo_name"])
         # update config with external json - this will throw errors if
         # the external config has keys not present in the base algo config
-        with config.values_unlocked():
+        with config.unlocked(): # switched from config.values_unlocked() to config.unlocked()
             config.update(ext_cfg)
     else:
         raise ValueError("Please provide a task name through CLI arguments.")

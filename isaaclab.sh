@@ -362,8 +362,14 @@ while [[ $# -gt 0 ]]; do
             python_exe=$(extract_python_exe)
             echo "[INFO] Using python from: ${python_exe}"
             shift # past argument
-            ${python_exe} "$@"
-            # exit neatly
+            
+            if [[ "${DEBUGPY}" == "1" ]]; then
+                echo "[INFO] Running with debugpy on port 5678..."
+                ${python_exe} -m debugpy --listen 5678 --wait-for-client "$@"
+            else
+                ${python_exe} "$@"
+            fi
+            
             break
             ;;
         -s|--sim)
