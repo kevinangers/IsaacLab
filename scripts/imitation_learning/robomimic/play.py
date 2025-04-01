@@ -43,7 +43,7 @@ from isaaclab_tasks.utils import parse_env_cfg
 
 
 def rollout(policy, env, horizon, device):
-    policy.start_episode
+    policy.start_episode()
     obs_dict, _ = env.reset()
     traj = dict(actions=[], obs=[], next_obs=[])
 
